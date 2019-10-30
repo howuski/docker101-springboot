@@ -1,0 +1,46 @@
+group 'org.docker101.springbootapi'
+
+buildscript {
+    repositories {
+        mavenCentral()
+    }
+    dependencies{
+        classpath("org.springframework.boot:spring-boot-gradle-plugin:2.0.0.RELEASE")
+    }
+}
+
+apply plugin: 'java'
+apply plugin: 'org.springframework.boot'
+apply plugin: 'io.spring.dependency-management'
+apply plugin: 'war'
+
+repositories{
+    mavenCentral()
+}
+
+sourceCompatibility = 1.8
+targetCompatibility = 1.8
+
+dependencies{
+    compile("org.springframework.boot:spring-boot-starter-web")
+    testCompile("junit:junit")
+}
+
+war{
+    enabled = true
+    baseName = "docker101_springboot"
+}
+
+bootJar{
+    dependsOn jar
+    classifier = "boot"
+    baseName = "docker101_springboot"
+    launchScript()
+}
+
+bootWar{
+    dependsOn bootJar
+    classifier = "boot"
+    baseName = "docker101_springboot"
+    launchScript()
+}
